@@ -1,0 +1,10 @@
+.venv/
+.idea/
+dist/
+.DS_Store
+__pycache__
+.pytest_cache
+.coverage
+coverage.xml
+.env
+db.sqlite3
