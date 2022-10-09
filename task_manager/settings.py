@@ -33,6 +33,7 @@ DEBUG = str(os.getenv('DEBUG'))
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '0.0.0.0:$PORT'
     'webserver',
 ]
 
