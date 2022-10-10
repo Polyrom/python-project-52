@@ -20,13 +20,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link text-dark" href="#">{% translate "Пользователи" %}</a>
+        <a class="nav-link text-dark" href="{% url 'users.list' %}">{% translate "Пользователи" %}</a>
       </div>
     </div>
   </div>
   <div class="navbar-nav">
-    <a class="nav-link text-dark" href="#">{% translate "Вход" %}</a>
-    <a class="nav-link text-dark" href="#">{% translate "Регистрация" %}</a>
+    <a class="nav-link text-dark" href="{% url 'login' %}">{% translate "Вход" %}</a>
+    <a class="nav-link text-dark" href="{% url 'user.create' %}">{% translate "Регистрация" %}</a>
   </div>
 </nav>
 {% block content %}

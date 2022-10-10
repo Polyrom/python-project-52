@@ -1,0 +1,12 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+{% block content %}
+<form method="post">{% csrf_token %}
+    <div class="container wrapper flex-grow-1 my-5">
+      <h1 class="my-5">{% translate 'Вход' %}</h1>
+      <div class="form-group"><label for="id_username">{% translate 'Имя пользователя' %}</label><input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" class="form-control" title="" required="" id="id_username"></div>
+      <div class="form-group"><label for="id_password">{% translate 'Пароль' %}</label><input type="password" name="password" autocomplete="current-password" class="form-control" title="" required="" id="id_password"></div>
+      <div class="form-group"><input class="btn btn-primary" type="submit" value="{% translate 'Войти' %}"></div>
+    </div>
+</form>
+{% endblock %}
