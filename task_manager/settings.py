@@ -34,6 +34,7 @@ DEBUG = str(os.getenv('DEBUG'))
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '0.0.0.0:$PORT',
+    '0.0.0.0'
     'python-project-52-production.up.railway.app',
     'webserver',
 ]
@@ -48,9 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
     'task_manager',
     'bootstrap4',
-    'users',
 ]
 
 MIDDLEWARE = [
@@ -102,16 +103,10 @@ DATABASES['default'].update(db_from_env)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'OPTIONS': {
+            'min_length': 3,
+        },
     },
 ]
 
@@ -119,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
