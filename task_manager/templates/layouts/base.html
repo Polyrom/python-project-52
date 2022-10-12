@@ -40,7 +40,12 @@
   </div>
   {% endif %}
 </nav>
+<div class="container wrapper flex-grow-1 my-4">
+    {% if messages %}
+    {% bootstrap_messages %}
+    {% endif %}
 {% block content %}
 {% endblock %}
+</div>
 </body>
 </html>

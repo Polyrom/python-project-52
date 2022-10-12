@@ -4,12 +4,6 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container wrapper flex-grow-1 my-4">
-
-    {% if messages %}
-    {% bootstrap_messages %}
-    {% endif %}
-
     <h1 class="my-4">Пользователи</h1>
     <table class="table table-striped">
         <thead>
@@ -37,5 +31,4 @@
         {% endfor %}
         </tbody>
     </table>
-</div>
 {% endblock %}

@@ -2,7 +2,6 @@
 {% load bootstrap4 %}
 {% load i18n %}
 {% block content %}
-<div class="container wrapper flex-grow-1 my-3">
 
 <h1 class="my-4">{% translate "Регистрация" %}</h1>
 
@@ -10,5 +9,4 @@
     {% bootstrap_form form %}
     <input type="submit" class="btn btn-primary" value="{% translate 'Зарегистрировать' %}">
 </form>
-</div>
 {% endblock %}
