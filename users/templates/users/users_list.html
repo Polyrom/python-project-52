@@ -1,7 +1,15 @@
 {% extends "layouts/base.html" %}
+{% load bootstrap4 %}
+{% bootstrap_javascript jquery=True %}
 {% load i18n %}
+
 {% block content %}
-<div class="container wrapper flex-grow-1">
+<div class="container wrapper flex-grow-1 my-4">
+
+    {% if messages %}
+    {% bootstrap_messages %}
+    {% endif %}
+
     <h1 class="my-4">Пользователи</h1>
     <table class="table table-striped">
         <thead>
@@ -23,7 +31,7 @@
             <td>
               <a href="">{% translate "Изменить" %}</a>
               <br>
-              <a href="">{% translate "Удалить" %}</a>
+              <a href="{% url 'user.delete' pk=user.id %}">{% translate "Удалить" %}</a>
             </td>
         </tr>
         {% endfor %}

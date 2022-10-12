@@ -1,6 +1,8 @@
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.models import User
+from django.views.generic.edit import DeleteView
 from users.forms import UserCreateForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class UsersListView(ListView):
@@ -15,3 +17,11 @@ class SignupView(CreateView):
 
     def get_success_url(self):
         return '/login'
+
+
+class UserDeleteView(SuccessMessageMixin, DeleteView):
+    model = User
+    success_url = '/users'
+    template_name = 'users/user_delete.html'
+    success_message = 'Пользователь успешно удалён'
+
