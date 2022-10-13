@@ -10,6 +10,9 @@ migrate:
 lint:
 	poetry run flake8 task_manager
 
+test:
+	poetry run ./manage.py test
+
 update:
 	poetry update
 

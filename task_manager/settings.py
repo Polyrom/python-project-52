@@ -63,6 +63,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://python-project-52-production.up.railway.app',]
+
 ROOT_URLCONF = 'task_manager.urls'
 
 TEMPLATES = [
