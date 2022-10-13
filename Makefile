@@ -13,6 +13,12 @@ lint:
 test:
 	poetry run ./manage.py test
 
+test-coverage:
+	poetry run coverage report
+
+test-coverage-xml:
+	poetry run coverage xml
+
 update:
 	poetry update
 
