@@ -10,4 +10,6 @@ class UserCreateForm(UserCreationForm):
             'first_name',
             'last_name',
             'username',
+            'password1',
+            'password2'
         )
