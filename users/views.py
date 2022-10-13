@@ -47,6 +47,5 @@ class UserDeleteView(SuccessMessageMixin, DeleteView):
     model = User
     success_url = '/users'
     template_name = 'users/user_delete.html'
-    login_url = '/login/'
     success_message = 'Пользователь успешно удалён'
 
