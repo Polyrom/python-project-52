@@ -14,7 +14,9 @@ test:
 	poetry run ./manage.py test
 
 test-coverage:
-	poetry run coverage report
+	poetry run coverage run ./manage.py test
+	poetry run coverage html
+	poetry run coverage report	
 
 test-coverage-xml:
 	poetry run coverage xml

@@ -5,7 +5,7 @@ dist/
 __pycache__
 .pytest_cache
 .coverage
-coverage.xml
+htmlcov
 .env
 db.sqlite3
 test-coverage-tool
