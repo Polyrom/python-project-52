@@ -49,3 +49,12 @@ class UserDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
 
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.pk == self.kwargs['pk']:
+            messages.add_message(request, messages.ERROR,
+                                 'У вас нет прав для изменения другого пользователя.')
+            return redirect('users.list')
+        return response
+
+
