@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+{% load bootstrap4 %}
+{% bootstrap_javascript jquery=True %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="my-4">{% translate "Статусы" %}</h1>
+    <a class="nav-link" href="{% url 'status.create' %}">Создать статус</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>{% translate "Имя" %}</th>
+            <th>{% translate "Дата создания" %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for status in statuses %}
+        <tr>
+            <td>{{ status.id }}</td>
+            <td>{{ status.title }}</td>
+            <td>{{ status.created_at }}</td>
+            <td>
+              <a href="#">{% translate "Изменить" %}</a>
+              <br>
+              <a href="#">{% translate "Удалить" %}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
