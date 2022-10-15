@@ -68,6 +68,7 @@ class TestViews(TestCase):
         self.assertEquals(User.objects.first().username, 'RegionalManager')
 
     def test_delete_user_GET(self):
+        self.client.force_login(user=self.user)
         response = self.client.get(self.delete_user)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_delete.html')
