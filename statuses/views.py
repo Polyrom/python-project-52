@@ -1,4 +1,5 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
 from statuses.models import Statuses
 from statuses.forms import StatusForm
 
@@ -16,7 +17,7 @@ class StatusCreateView(CreateView):
     success_url = '/statuses/'
 
 
-class StatusUpdateView(UpdateView):
+class StatusUpdateView(SuccessMessageMixin, UpdateView):
     model = Statuses
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
@@ -24,7 +25,7 @@ class StatusUpdateView(UpdateView):
     success_message = 'Статус успешно изменён'
 
 
-class StatusDeleteView(DeleteView):
+class StatusDeleteView(SuccessMessageMixin, DeleteView):
     model = Statuses
     context_object_name = 'status'
     success_url = '/statuses/'
