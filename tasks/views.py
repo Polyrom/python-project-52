@@ -1,5 +1,7 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from tasks.models import Tasks
 from tasks.forms import TaskForm
 
@@ -36,6 +38,13 @@ class TaskDeleteView(SuccessMessageMixin, DeleteView):
     success_url = '/tasks/'
     template_name = 'tasks/task_delete.html'
     success_message = 'Задача успешно удалена'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user == self.model.objects.get(id=kwargs['pk']).author:
+            messages.add_message(request, messages.ERROR,
+                                 'Задачу может удалить только её автор')
+            return HttpResponseRedirect(self.success_url)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class TaskDetailsView(DetailView):
