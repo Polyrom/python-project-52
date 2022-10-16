@@ -7,6 +7,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 
 
 class UsersListView(ListView):
@@ -49,6 +50,15 @@ class UserDeleteView(SuccessMessageMixin, DeleteView):
     success_url = '/users'
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except ProtectedError:
+            messages.error(self.request, 'Невозможно удалить пользователя, потому что он используется')
+            return HttpResponseRedirect(self.success_url)
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)

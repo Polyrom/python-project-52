@@ -1,5 +1,8 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
+from django.db.models.deletion import ProtectedError
+from django.contrib import messages
 from statuses.models import Statuses
 from statuses.forms import StatusForm
 
@@ -10,11 +13,12 @@ class StatusesListView(ListView):
     context_object_name = 'statuses'
 
 
-class StatusCreateView(CreateView):
+class StatusCreateView(SuccessMessageMixin, CreateView):
     model = Statuses
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
     success_url = '/statuses/'
+    success_message = 'Статус успешно создан'
 
 
 class StatusUpdateView(SuccessMessageMixin, UpdateView):
@@ -31,3 +35,12 @@ class StatusDeleteView(SuccessMessageMixin, DeleteView):
     success_url = '/statuses/'
     template_name = 'statuses/status_delete.html'
     success_message = 'Статус успешно удалён'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except ProtectedError:
+            messages.error(self.request, 'Невозможно удалить статус, потому что он используется')
+            return HttpResponseRedirect(self.success_url)
