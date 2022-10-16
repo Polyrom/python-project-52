@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+{% load bootstrap4 %}
+{% bootstrap_javascript jquery=True %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="my-4">{% translate "Задачи" %}</h1>
+    <a class="nav-link" href="{% url 'task.create' %}">{% translate "Создать задачу" %}</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>{% translate "Имя" %}</th>
+            <th>{% translate "Статус" %}</th>
+            <th>{% translate "Автор" %}</th>
+            <th>{% translate "Исполнитель" %}</th>
+            <th>{% translate "Дата создания" %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.title }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.author }}</td>
+            <td>{{ task.executive }}</td>
+            <td>{{ task.created_at }}</td>
+            <td>
+              <a href="{% url 'task.update' pk=task.id %}">{% translate "Изменить" %}</a>
+              <br>
+              <a href="{% url 'task.delete' pk=task.id %}">{% translate "Удалить" %}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
