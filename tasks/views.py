@@ -2,18 +2,18 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from tasks.models import Tasks
+from tasks.models import Task
 from tasks.forms import TaskForm
 
 
 class TasksListView(ListView):
-    model = Tasks
+    model = Task
     template_name = 'tasks/tasks_list.html'
     context_object_name = 'tasks'
 
 
 class TaskCreateView(SuccessMessageMixin, CreateView):
-    model = Tasks
+    model = Task
     form_class = TaskForm
     template_name = 'tasks/task_create.html'
     success_url = '/tasks/'
@@ -25,7 +25,7 @@ class TaskCreateView(SuccessMessageMixin, CreateView):
 
 
 class TaskUpdateView(SuccessMessageMixin, UpdateView):
-    model = Tasks
+    model = Task
     form_class = TaskForm
     template_name = 'tasks/task_update.html'
     success_url = '/tasks/'
@@ -33,7 +33,7 @@ class TaskUpdateView(SuccessMessageMixin, UpdateView):
 
 
 class TaskDeleteView(SuccessMessageMixin, DeleteView):
-    model = Tasks
+    model = Task
     context_object_name = 'task'
     success_url = '/tasks/'
     template_name = 'tasks/task_delete.html'
@@ -48,6 +48,6 @@ class TaskDeleteView(SuccessMessageMixin, DeleteView):
 
 
 class TaskDetailsView(DetailView):
-    model = Tasks
+    model = Task
     context_object_name = 'task'
     template_name = 'tasks/task_details.html'

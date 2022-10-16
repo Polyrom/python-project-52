@@ -30,6 +30,16 @@
       </div>
       <div class="row p-1">
         <div class="col">
+          <h6>{% translate "Метки" %}:</h6>
+          {% for label in task.labels.all %}
+          <ul class="my-0">
+              <li>{{ label }}</li>
+          </ul>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col">
           <a href="{% url 'task.update' pk=task.id %}">Изменить</a>
           <br>
           <a href="{% url 'task.delete' pk=task.id %}">Удалить</a>
