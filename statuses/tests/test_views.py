@@ -32,7 +32,7 @@ class TestViews(TestCase):
         Statuses.objects.create(pk=1, title='title')
         response = self.client.get(self.update_status)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'statuses/status_create.html')
+        self.assertTemplateUsed(response, 'statuses/status_update.html')
 
     def test_update_status_POST(self):
         Statuses.objects.create(pk=1, title='title')

@@ -20,7 +20,7 @@ class StatusCreateView(CreateView):
 class StatusUpdateView(SuccessMessageMixin, UpdateView):
     model = Statuses
     form_class = StatusForm
-    template_name = 'statuses/status_create.html'
+    template_name = 'statuses/status_update.html'
     success_url = '/statuses/'
     success_message = 'Статус успешно изменён'
 

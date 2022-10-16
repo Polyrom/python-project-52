@@ -25,7 +25,7 @@ class TaskCreateView(SuccessMessageMixin, CreateView):
 class TaskUpdateView(SuccessMessageMixin, UpdateView):
     model = Tasks
     form_class = TaskForm
-    template_name = 'tasks/task_create.html'
+    template_name = 'tasks/task_update.html'
     success_url = '/tasks/'
     success_message = 'Задача успешно изменена'
 
