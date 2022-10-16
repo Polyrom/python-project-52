@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% block content %}
+
+<h1 class="my-4">{% translate "Удаление метки" %}</h1>
+
+<form method="post">{% csrf_token %}
+  <p>{% translate "Вы уверены, что хотите удалить"%} {{ label.title }}?</p>
+  <input type="submit" class="btn btn-danger" value="Да, удалить"/>
+</form>
+
+{% endblock %}

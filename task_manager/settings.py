@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'users',
     'tasks',
     'statuses',
+    'labels',
     'bootstrap4',
 ]
 
