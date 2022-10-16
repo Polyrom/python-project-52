@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from tasks.models import Tasks
 from tasks.forms import TaskForm
@@ -36,3 +36,9 @@ class TaskDeleteView(SuccessMessageMixin, DeleteView):
     success_url = '/tasks/'
     template_name = 'tasks/task_delete.html'
     success_message = 'Задача успешно удалена'
+
+
+class TaskDetailsView(DetailView):
+    model = Tasks
+    context_object_name = 'task'
+    template_name = 'tasks/task_details.html'

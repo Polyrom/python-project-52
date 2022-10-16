@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.models import User
+from django.db.models.deletion import ProtectedError
 from django.views.generic.edit import DeleteView, UpdateView
 from users.forms import UserCreateForm
 from django.contrib.messages.views import SuccessMessageMixin
