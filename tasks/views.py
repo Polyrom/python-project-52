@@ -1,15 +1,16 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
+from django_filters.views import FilterView
+from tasks.forms import TaskFilter
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from tasks.models import Task
 from tasks.forms import TaskForm
 
 
-class TasksListView(ListView):
-    model = Task
+class TasksListView(FilterView):
+    filterset_class = TaskFilter
     template_name = 'tasks/tasks_list.html'
-    context_object_name = 'tasks'
 
 
 class TaskCreateView(SuccessMessageMixin, CreateView):

@@ -1,11 +1,11 @@
 from django import forms
-from labels.models import Labels
+from labels.models import Label
 
 
 class LabelForm(forms.ModelForm):
 
     class Meta:
-        model = Labels
+        model = Label
         fields = ('title',)
         labels = {
             'title': 'Имя'

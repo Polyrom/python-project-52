@@ -18,7 +18,7 @@
       </div>
       <div class="row p-1">
         <div class="col">{% translate "Исполнитель" %}</div>
-        <div class="col">{{ task.executive }}</div>
+        <div class="col">{{ task.executor }}</div>
       </div>
       <div class="row p-1">
         <div class="col">{% translate "Статус" %}</div>
@@ -31,7 +31,7 @@
       <div class="row p-1">
         <div class="col">
           <h6>{% translate "Метки" %}:</h6>
-          {% for label in task.labels.all %}
+          {% for label in task.label.all %}
           <ul class="my-0">
               <li>{{ label }}</li>
           </ul>

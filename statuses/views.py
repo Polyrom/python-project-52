@@ -3,18 +3,18 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.db.models.deletion import ProtectedError
 from django.contrib import messages
-from statuses.models import Statuses
+from statuses.models import Status
 from statuses.forms import StatusForm
 
 
 class StatusesListView(ListView):
-    model = Statuses
+    model = Status
     template_name = 'statuses/statuses_list.html'
     context_object_name = 'statuses'
 
 
 class StatusCreateView(SuccessMessageMixin, CreateView):
-    model = Statuses
+    model = Status
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
     success_url = '/statuses/'
@@ -22,7 +22,7 @@ class StatusCreateView(SuccessMessageMixin, CreateView):
 
 
 class StatusUpdateView(SuccessMessageMixin, UpdateView):
-    model = Statuses
+    model = Status
     form_class = StatusForm
     template_name = 'statuses/status_update.html'
     success_url = '/statuses/'
@@ -30,7 +30,7 @@ class StatusUpdateView(SuccessMessageMixin, UpdateView):
 
 
 class StatusDeleteView(SuccessMessageMixin, DeleteView):
-    model = Statuses
+    model = Status
     context_object_name = 'status'
     success_url = '/statuses/'
     template_name = 'statuses/status_delete.html'

@@ -5,7 +5,18 @@
 
 {% block content %}
     <h1 class="my-4">{% translate "Задачи" %}</h1>
+
     <a class="nav-link" href="{% url 'task.create' %}">{% translate "Создать задачу" %}</a>
+
+    <div class="card mb-3">
+        <div class="card-body bg-light">
+            <form class="form-inline center" method="get">
+                {% bootstrap_form filter.form field_class="ml-4 mr-4 my-3" %}
+                <input type="submit" class="btn btn-primary" value="{% translate 'Показать' %}">
+            </form>
+        </div>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -18,22 +29,23 @@
             <th></th>
         </tr>
         </thead>
+    {% for obj in filter.qs %}
         <tbody>
-        {% for task in tasks %}
         <tr>
-            <td>{{ task.id }}</td>
-            <td><a href="{% url 'task.details' pk=task.id %}">{{ task.title }}</a></td>
-            <td>{{ task.status }}</td>
-            <td>{{ task.author }}</td>
-            <td>{{ task.executive }}</td>
-            <td>{{ task.created_at }}</td>
+            <td>{{ obj.id }}</td>
+            <td><a href="{% url 'task.details' pk=obj.id %}">{{ obj.title }}</a></td>
+            <td>{{ obj.status }}</td>
+            <td>{{ obj.author }}</td>
+            <td>{{ obj.executor }}</td>
+            <td>{{ obj.created_at }}</td>
             <td>
-              <a href="{% url 'task.update' pk=task.id %}">{% translate "Изменить" %}</a>
+              <a href="{% url 'task.update' pk=obj.id %}">{% translate "Изменить" %}</a>
               <br>
-              <a href="{% url 'task.delete' pk=task.id %}">{% translate "Удалить" %}</a>
+              <a href="{% url 'task.delete' pk=obj.id %}">{% translate "Удалить" %}</a>
             </td>
         </tr>
-        {% endfor %}
         </tbody>
+    {% endfor %}
     </table>
+
 {% endblock %}

@@ -1,11 +1,11 @@
 from django import forms
-from statuses.models import Statuses
+from statuses.models import Status
 
 
 class StatusForm(forms.ModelForm):
 
     class Meta:
-        model = Statuses
+        model = Status
         fields = ('title',)
         labels = {
             'title': 'Имя'

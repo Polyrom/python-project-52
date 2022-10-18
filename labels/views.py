@@ -1,20 +1,20 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.deletion import ProtectedError
-from labels.models import Labels
+from labels.models import Label
 from labels.forms import LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 
 class LabelsListView(ListView):
-    model = Labels
+    model = Label
     template_name = 'labels/labels_list.html'
     context_object_name = 'labels'
 
 
 class LabelCreateView(SuccessMessageMixin, CreateView):
-    model = Labels
+    model = Label
     form_class = LabelForm
     template_name = 'labels/label_create.html'
     success_url = '/labels/'
@@ -22,7 +22,7 @@ class LabelCreateView(SuccessMessageMixin, CreateView):
 
 
 class LabelUpdateView(SuccessMessageMixin, UpdateView):
-    model = Labels
+    model = Label
     form_class = LabelForm
     template_name = 'labels/label_update.html'
     success_url = '/labels/'
@@ -30,7 +30,7 @@ class LabelUpdateView(SuccessMessageMixin, UpdateView):
 
 
 class LabelDeleteView(SuccessMessageMixin, DeleteView):
-    model = Labels
+    model = Label
     context_object_name = 'label'
     success_url = '/labels/'
     template_name = 'labels/label_delete.html'
