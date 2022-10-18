@@ -1,12 +1,15 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from statuses.models import Status
+from django.contrib.auth.models import User
 
 
 class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.user = User.objects.create_user(username='random')
+        self.client.force_login(user=self.user)
         self.statuses_list = reverse('statuses.list')
         self.create_status = reverse('status.create')
         self.update_status = reverse('status.update', kwargs={'pk': 1})
