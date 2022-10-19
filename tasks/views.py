@@ -14,12 +14,11 @@ class TasksListView(FilterView):
     template_name = 'tasks/tasks_list.html'
 
     def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
             messages.add_message(request, messages.ERROR,
                                  'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect(settings.LOGIN_URL)
-        return response
+        return super().dispatch(request, *args, **kwargs)
 
 
 class TaskCreateView(SuccessMessageMixin, CreateView):
@@ -30,12 +29,11 @@ class TaskCreateView(SuccessMessageMixin, CreateView):
     success_message = 'Задача успешно создана'
 
     def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
             messages.add_message(request, messages.ERROR,
                                  'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect(settings.LOGIN_URL)
-        return response
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -50,12 +48,11 @@ class TaskUpdateView(SuccessMessageMixin, UpdateView):
     success_message = 'Задача успешно изменена'
 
     def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
             messages.add_message(request, messages.ERROR,
                                  'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect(settings.LOGIN_URL)
-        return response
+        return super().dispatch(request, *args, **kwargs)
 
 
 class TaskDeleteView(SuccessMessageMixin, DeleteView):
@@ -87,3 +84,4 @@ class TaskDetailsView(DetailView):
             messages.add_message(request, messages.ERROR,
                                  'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect(settings.LOGIN_URL)
+        return super().dispatch(request, *args, **kwargs)
