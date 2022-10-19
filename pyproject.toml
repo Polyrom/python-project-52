@@ -5,6 +5,9 @@ description = "Team task manager app"
 authors = ["Roman Poliakov <roman61394@gmail.com>"]
 license = "CC0"
 readme = "README.md"
+packages = [
+    {include = "task_manager"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
