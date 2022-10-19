@@ -1,16 +1,27 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.deletion import ProtectedError
+from django.contrib.auth.mixins import LoginRequiredMixin
 from labels.models import Label
 from labels.forms import LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.shortcuts import redirect
+from task_manager import settings
 
 
-class LabelsListView(ListView):
+class LabelsListView(LoginRequiredMixin, ListView):
     model = Label
     template_name = 'labels/labels_list.html'
     context_object_name = 'labels'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_authenticated:
+            messages.add_message(request, messages.ERROR,
+                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            return redirect(settings.LOGIN_URL)
+        return response
 
 
 class LabelCreateView(SuccessMessageMixin, CreateView):
@@ -20,6 +31,14 @@ class LabelCreateView(SuccessMessageMixin, CreateView):
     success_url = '/labels/'
     success_message = 'Метка успешно создана'
 
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_authenticated:
+            messages.add_message(request, messages.ERROR,
+                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            return redirect(settings.LOGIN_URL)
+        return response
+
 
 class LabelUpdateView(SuccessMessageMixin, UpdateView):
     model = Label
@@ -28,6 +47,14 @@ class LabelUpdateView(SuccessMessageMixin, UpdateView):
     success_url = '/labels/'
     success_message = 'Метка успешно изменена'
 
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_authenticated:
+            messages.add_message(request, messages.ERROR,
+                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            return redirect(settings.LOGIN_URL)
+        return response
+
 
 class LabelDeleteView(SuccessMessageMixin, DeleteView):
     model = Label
@@ -35,6 +62,14 @@ class LabelDeleteView(SuccessMessageMixin, DeleteView):
     success_url = '/labels/'
     template_name = 'labels/label_delete.html'
     success_message = 'Метка успешно удалена'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_authenticated:
+            messages.add_message(request, messages.ERROR,
+                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            return redirect(settings.LOGIN_URL)
+        return response
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
