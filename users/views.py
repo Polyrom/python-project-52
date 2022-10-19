@@ -16,9 +16,10 @@ class UsersListView(ListView):
     context_object_name = 'users'
 
 
-class SignupView(CreateView):
+class SignupView(SuccessMessageMixin, CreateView):
     form_class = UserCreateForm
     template_name = 'users/user_create.html'
+    success_message = 'Пользователь успешно зарегистрирован'
 
     def get_success_url(self):
         return '/login'
