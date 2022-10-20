@@ -63,6 +63,16 @@ class LabelDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'labels/label_delete.html'
     success_message = 'Метка успешно удалена'
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            messages.success(request, self.success_message)
+            return HttpResponseRedirect(self.success_url)
+        except ProtectedError:
+            messages.error(self.request, 'Невозможно удалить метку, потому что она используется')
+            return HttpResponseRedirect(self.success_url)
+
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
@@ -70,12 +80,3 @@ class LabelDeleteView(SuccessMessageMixin, DeleteView):
                                  'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect(settings.LOGIN_URL)
         return response
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        try:
-            self.object.delete()
-            return HttpResponseRedirect(self.success_url)
-        except ProtectedError:
-            messages.error(self.request, 'Невозможно удалить метку, потому что она используется')
-            return HttpResponseRedirect(self.success_url)

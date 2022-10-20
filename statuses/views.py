@@ -56,12 +56,22 @@ class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return response
 
 
-class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Status
     context_object_name = 'status'
     success_url = '/statuses/'
     template_name = 'statuses/status_delete.html'
     success_message = 'Статус успешно удалён'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            messages.success(request, self.success_message)
+            return HttpResponseRedirect(self.success_url)
+        except ProtectedError:
+            messages.error(self.request, 'Невозможно удалить статус, потому что он используется')
+            return HttpResponseRedirect(self.success_url)
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
@@ -70,12 +80,3 @@ class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
                                  'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect(settings.LOGIN_URL)
         return response
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        try:
-            self.object.delete()
-            return HttpResponseRedirect(self.success_url)
-        except ProtectedError:
-            messages.error(self.request, 'Невозможно удалить статус, потому что он используется')
-            return HttpResponseRedirect(self.success_url)
