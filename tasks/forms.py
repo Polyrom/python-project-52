@@ -12,13 +12,13 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('name', 'description', 'status', 'label', 'executor')
+        fields = ('name', 'description', 'status', 'executor', 'label')
         labels = {
             'name': 'Имя',
             'description': 'Описание',
             'status': 'Статус',
+            'executor': 'Исполнитель',
             'label': 'Метки',
-            'executor': 'Исполнитель'
         }
 
 
