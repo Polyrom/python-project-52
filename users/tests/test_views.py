@@ -74,6 +74,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'users/user_delete.html')
 
     def test_delete_user_POST(self):
+        self.client.force_login(user=self.user)
         response = self.client.delete(self.delete_user)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(User.objects.count(), 0)
