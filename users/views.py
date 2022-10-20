@@ -46,27 +46,30 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return response
 
 
-class UserDeleteView(SuccessMessageMixin, DeleteView):
+class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = User
     success_url = '/users'
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
+    redirect_field_name = ''
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         try:
             self.object.delete()
+            messages.success(request, self.success_message)
             return HttpResponseRedirect(self.success_url)
         except ProtectedError:
-            messages.error(self.request, 'Невозможно удалить пользователя, потому что он используется')
+            messages.error(request, 'Невозможно удалить пользователя, потому что он используется')
             return HttpResponseRedirect(self.success_url)
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
-        if not request.user.pk == self.kwargs['pk']:
-            messages.add_message(request, messages.ERROR,
-                                 'У вас нет прав для изменения другого пользователя.')
-            return redirect('users.list')
+        if not request.user.is_authenticated:
+            messages.error(request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
+        elif not request.user.pk == self.kwargs['pk']:
+            messages.error(request, 'У вас нет прав для изменения другого пользователя.')
+            return redirect(self.success_url)
         return response
 
 
