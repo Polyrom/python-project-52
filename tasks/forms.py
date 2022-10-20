@@ -12,9 +12,9 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('title', 'description', 'status', 'label', 'executor')
+        fields = ('name', 'description', 'status', 'label', 'executor')
         labels = {
-            'title': 'Имя',
+            'name': 'Имя',
             'description': 'Описание',
             'status': 'Статус',
             'label': 'Метки',
@@ -24,14 +24,14 @@ class TaskForm(forms.ModelForm):
 
 class TaskFilter(FilterSet):
 
-    all_statuses = Status.objects.values_list('id', 'title', named=True).all()
+    all_statuses = Status.objects.values_list('id', 'name', named=True).all()
     status = ChoiceFilter(label='Статус', choices=all_statuses)
     all_executors = User.objects.values_list(
         'id',
         Concat('first_name', Value(' '), 'last_name'),
         named=True).all()
     executor = ChoiceFilter(label='Исполнитель', choices=all_executors)
-    all_labels = Label.objects.values_list('id', 'title', named=True).all()
+    all_labels = Label.objects.values_list('id', 'name', named=True).all()
     label = ChoiceFilter(label='Метка', choices=all_labels)
     my_tasks = BooleanFilter(
         label='Только свои задачи',

@@ -16,8 +16,8 @@ class TestViews(TestCase):
         self.create_task = reverse('task.create')
         self.update_task = reverse('task.update', kwargs={'pk': 1})
         self.delete_task = reverse('task.delete', kwargs={'pk': 1})
-        self.label = Label.objects.create(title='random_label')
-        self.status = Status.objects.create(title='random_status')
+        self.label = Label.objects.create(name='random_label')
+        self.status = Status.objects.create(name='random_status')
 
     def test_tasks_list(self):
         response = self.client.get(self.tasks_list)
@@ -31,7 +31,7 @@ class TestViews(TestCase):
 
     def test_create_task_POST(self):
         data = {
-            'title': 'random',
+            'name': 'random',
             'status': self.status.pk,
             'label': ['1'],
             'executor': self.user.pk

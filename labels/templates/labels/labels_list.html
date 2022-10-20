@@ -19,7 +19,7 @@
         {% for label in labels %}
         <tr>
             <td>{{ label.id }}</td>
-            <td>{{ label.title }}</td>
+            <td>{{ label.name }}</td>
             <td>{{ label.created_at }}</td>
             <td>
               <a href="{% url 'label.update' pk=label.id %}">{% translate "Изменить" %}</a>

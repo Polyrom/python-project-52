@@ -6,7 +6,7 @@ class StatusForm(forms.ModelForm):
 
     class Meta:
         model = Status
-        fields = ('title',)
+        fields = ('name',)
         labels = {
-            'title': 'Имя'
+            'name': 'Имя'
         }

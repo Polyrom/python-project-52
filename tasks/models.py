@@ -5,7 +5,7 @@ from labels.models import Label
 
 
 class Task(models.Model):
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     description = models.TextField(max_length=3000, blank=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT, null=True)
     label = models.ManyToManyField(Label, through='Labeled', through_fields=('task', 'label'))

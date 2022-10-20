@@ -33,7 +33,7 @@
         <tbody>
         <tr>
             <td>{{ obj.id }}</td>
-            <td><a href="{% url 'task.details' pk=obj.id %}">{{ obj.title }}</a></td>
+            <td><a href="{% url 'task.details' pk=obj.id %}">{{ obj.name }}</a></td>
             <td>{{ obj.status }}</td>
             <td>{{ obj.author }}</td>
             <td>{{ obj.executor }}</td>

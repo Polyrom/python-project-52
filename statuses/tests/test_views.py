@@ -26,32 +26,32 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'statuses/status_create.html')
 
     def test_create_status_POST(self):
-        data = {'title': 'random'}
+        data = {'name': 'random'}
         response = self.client.post(self.create_status, data=data)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(Status.objects.count(), 1)
 
     def test_update_status_GET(self):
-        Status.objects.create(pk=1, title='title')
+        Status.objects.create(pk=1, name='title')
         response = self.client.get(self.update_status)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/status_update.html')
 
     def test_update_status_POST(self):
-        Status.objects.create(pk=1, title='title')
-        data = {'title': 'random'}
+        Status.objects.create(pk=1, name='title')
+        data = {'name': 'random'}
         response = self.client.post(self.update_status, data=data)
         self.assertEquals(response.status_code, 302)
-        self.assertEquals(Status.objects.get(pk=1).title, 'random')
+        self.assertEquals(Status.objects.get(pk=1).name, 'random')
 
     def test_delete_status_GET(self):
-        Status.objects.create(pk=1, title='title')
+        Status.objects.create(pk=1, name='title')
         response = self.client.get(self.delete_status)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/status_delete.html')
 
     def test_delete_status_POST(self):
-        Status.objects.create(pk=1, title='title')
+        Status.objects.create(pk=1, name='title')
         response = self.client.delete(self.delete_status)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(Status.objects.count(), 0)

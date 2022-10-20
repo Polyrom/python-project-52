@@ -5,7 +5,7 @@ from statuses.forms import StatusForm
 class TestForms(TestCase):
 
     def test_status_form_valid_data(self):
-        form = StatusForm(data={'title': 'random'})
+        form = StatusForm(data={'name': 'random'})
         self.assertTrue(form.is_valid())
 
     def test_status_form_no_data(self):

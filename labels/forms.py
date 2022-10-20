@@ -6,7 +6,7 @@ class LabelForm(forms.ModelForm):
 
     class Meta:
         model = Label
-        fields = ('title',)
+        fields = ('name',)
         labels = {
-            'title': 'Имя'
+            'name': 'Имя'
         }

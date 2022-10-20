@@ -11,11 +11,11 @@ class TestForms(TestCase):
         self.client = Client()
         self.user = User.objects.create_user(username='random_user')
         self.client.force_login(user=self.user)
-        self.label = Label.objects.create(title='random_label')
-        self.status = Status.objects.create(title='random_status')
+        self.label = Label.objects.create(name='random_label')
+        self.status = Status.objects.create(name='random_status')
 
     def test_task_form_valid_data(self):
-        form = TaskForm(data={'title': 'random',
+        form = TaskForm(data={'name': 'random',
                               'description': 'random_desc',
                               'status': self.status.pk,
                               'label': ['1'],
