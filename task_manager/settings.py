@@ -75,7 +75,7 @@ ROLLBAR = {
     'root': BASE_DIR,
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://python-project-52-production.up.railway.app',]
+CSRF_TRUSTED_ORIGINS = ['https://python-project-52-production.up.railway.app', ]
 
 ROOT_URLCONF = 'task_manager.urls'
 
