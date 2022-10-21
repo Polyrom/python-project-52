@@ -18,8 +18,10 @@ class LabelsListView(LoginRequiredMixin, ListView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return response
 
@@ -34,8 +36,10 @@ class LabelCreateView(SuccessMessageMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return response
 
@@ -50,8 +54,10 @@ class LabelUpdateView(SuccessMessageMixin, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return response
 
@@ -70,13 +76,18 @@ class LabelDeleteView(SuccessMessageMixin, DeleteView):
             messages.success(request, self.success_message)
             return HttpResponseRedirect(self.success_url)
         except ProtectedError:
-            messages.error(self.request, 'Невозможно удалить метку, потому что она используется')
+            messages.error(
+                self.request,
+                'Невозможно удалить метку, потому что она используется'
+            )
             return HttpResponseRedirect(self.success_url)
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return response

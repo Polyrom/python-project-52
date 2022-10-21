@@ -1,6 +1,9 @@
 from django.test import SimpleTestCase
 from django.urls import resolve, reverse
-from statuses.views import StatusesListView, StatusUpdateView, StatusDeleteView, StatusCreateView
+from statuses.views import (StatusesListView,
+                            StatusUpdateView,
+                            StatusDeleteView,
+                            StatusCreateView)
 
 
 class TestUrls(SimpleTestCase):

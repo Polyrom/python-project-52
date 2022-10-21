@@ -8,7 +8,7 @@ migrate:
 	poetry run python manage.py migrate
 
 lint:
-	poetry run flake8 task_manager
+	poetry run flake8 task_manager labels users tasks statuses
 
 test:
 	poetry run ./manage.py test

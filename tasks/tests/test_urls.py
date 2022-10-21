@@ -1,6 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import resolve, reverse
-from tasks.views import TasksListView, TaskCreateView, TaskUpdateView, TaskDeleteView, TaskDetailsView
+from tasks.views import (TasksListView, TaskCreateView,
+                         TaskUpdateView, TaskDeleteView, TaskDetailsView)
 
 
 class TestUrls(SimpleTestCase):

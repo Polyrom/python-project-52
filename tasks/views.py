@@ -15,8 +15,10 @@ class TasksListView(FilterView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return super().dispatch(request, *args, **kwargs)
 
@@ -30,8 +32,10 @@ class TaskCreateView(SuccessMessageMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return super().dispatch(request, *args, **kwargs)
 
@@ -49,8 +53,10 @@ class TaskUpdateView(SuccessMessageMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return super().dispatch(request, *args, **kwargs)
 
@@ -64,12 +70,16 @@ class TaskDeleteView(SuccessMessageMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         if not request.user == self.model.objects.get(id=kwargs['pk']).author:
-            messages.add_message(request, messages.ERROR,
-                                 'Задачу может удалить только её автор')
+            messages.add_message(
+                request, messages.ERROR,
+                'Задачу может удалить только её автор'
+            )
             return redirect(self.success_url)
         return super().dispatch(request, *args, **kwargs)
 
@@ -81,7 +91,9 @@ class TaskDetailsView(DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.add_message(request, messages.ERROR,
-                                 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            messages.add_message(
+                request, messages.ERROR,
+                'Вы не авторизованы! Пожалуйста, выполните вход.'
+            )
             return redirect(settings.LOGIN_URL)
         return super().dispatch(request, *args, **kwargs)

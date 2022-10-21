@@ -1,6 +1,9 @@
 from django.test import SimpleTestCase
 from django.urls import resolve, reverse
-from labels.views import LabelsListView, LabelCreateView, LabelUpdateView, LabelDeleteView
+from labels.views import (LabelsListView,
+                          LabelCreateView,
+                          LabelUpdateView,
+                          LabelDeleteView)
 
 
 class TestUrls(SimpleTestCase):

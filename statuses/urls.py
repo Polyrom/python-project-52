@@ -1,5 +1,6 @@
 from django.urls import path
-from statuses.views import StatusesListView, StatusCreateView, StatusUpdateView, StatusDeleteView
+from statuses.views import (StatusesListView, StatusCreateView,
+                            StatusUpdateView, StatusDeleteView)
 
 
 urlpatterns = [

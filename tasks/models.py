@@ -8,9 +8,14 @@ class Task(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=3000, blank=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT, null=True)
-    labels = models.ManyToManyField(Label, through='Labeled', through_fields=('task', 'label'), blank=True)
-    author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='author')
-    executor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='executive')
+    labels = models.ManyToManyField(Label,
+                                    through='Labeled',
+                                    through_fields=('task', 'label'),
+                                    blank=True)
+    author = models.ForeignKey(User, on_delete=models.PROTECT,
+                               related_name='author')
+    executor = models.ForeignKey(User, on_delete=models.PROTECT,
+                                 related_name='executive')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
