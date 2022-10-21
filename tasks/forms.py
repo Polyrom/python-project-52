@@ -12,13 +12,13 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['name', 'description', 'status', 'executor', 'label']
+        fields = ['name', 'description', 'status', 'executor', 'labels']
         labels = {
             'name': 'Имя',
             'description': 'Описание',
             'status': 'Статус',
             'executor': 'Исполнитель',
-            'label': 'Метки',
+            'labels': 'Метки',
         }
 
 
@@ -32,7 +32,7 @@ class TaskFilter(FilterSet):
         named=True).all()
     executor = ChoiceFilter(label='Исполнитель', choices=all_executors)
     all_labels = Label.objects.values_list('id', 'name', named=True).all()
-    label = ChoiceFilter(label='Метка', choices=all_labels)
+    labels = ChoiceFilter(label='Метка', choices=all_labels)
     my_tasks = BooleanFilter(
         label='Только свои задачи',
         widget=forms.CheckboxInput(),
@@ -45,4 +45,4 @@ class TaskFilter(FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'label']
+        fields = ['status', 'executor', 'labels']
