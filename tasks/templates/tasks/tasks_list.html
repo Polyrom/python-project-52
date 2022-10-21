@@ -35,8 +35,8 @@
             <td>{{ obj.id }}</td>
             <td><a href="{% url 'task.details' pk=obj.id %}">{{ obj.name }}</a></td>
             <td>{{ obj.status }}</td>
-            <td>{{ obj.author }}</td>
-            <td>{{ obj.executor }}</td>
+            <td>{{ obj.author.first_name }} {{ obj.author.last_name }}</td>
+            <td>{{ obj.executor.first_name }} {{ obj.executor.last_name }}</td>
             <td>{{ obj.created_at }}</td>
             <td>
               <a href="{% url 'task.update' pk=obj.id %}">{% translate "Изменить" %}</a>
