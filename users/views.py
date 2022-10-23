@@ -3,9 +3,8 @@ from django.db.models.deletion import ProtectedError
 from django.views.generic.edit import DeleteView, UpdateView
 from users.forms import UserCreateForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from task_manager.mixins import NotLoggedInMessageMixin, WrongUserMessageMixin
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
 
@@ -25,37 +24,21 @@ class SignupView(SuccessMessageMixin, CreateView):
         return '/login'
 
 
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserUpdateView(SuccessMessageMixin, NotLoggedInMessageMixin,
+                     WrongUserMessageMixin, UpdateView):
     model = get_user_model()
     form_class = UserCreateForm
     template_name = 'users/user_update.html'
     success_url = '/users/'
     success_message = 'Пользователь успешно изменён'
-    redirect_field_name = ''
-
-    # add custom permission_denied_message
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if not request.user.is_authenticated:
-            messages.add_message(
-                request, messages.ERROR,
-                'Вы не авторизованы! Пожалуйста, выполните вход.'
-            )
-        elif not request.user.pk == self.kwargs['pk']:
-            messages.add_message(
-                request, messages.ERROR,
-                'У вас нет прав для изменения другого пользователя.'
-            )
-            return redirect('users.list')
-        return response
 
 
-class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(SuccessMessageMixin, NotLoggedInMessageMixin,
+                     WrongUserMessageMixin, DeleteView):
     model = get_user_model()
     success_url = '/users'
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
-    redirect_field_name = ''
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -69,18 +52,3 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
                 'Невозможно удалить пользователя, потому что он используется'
             )
             return HttpResponseRedirect(self.success_url)
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if not request.user.is_authenticated:
-            messages.error(
-                request,
-                'Вы не авторизованы! Пожалуйста, выполните вход.'
-            )
-        elif not request.user.pk == self.kwargs['pk']:
-            messages.error(
-                request,
-                'У вас нет прав для изменения другого пользователя.'
-            )
-            return redirect(self.success_url)
-        return response
