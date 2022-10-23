@@ -1,12 +1,12 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django_filters import FilterSet, ChoiceFilter, BooleanFilter
 from django.db.models import Value
 from django.db.models.functions import Concat
+
 from tasks.models import Task
 from statuses.models import Status
 from labels.models import Label
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
 
 class TaskForm(forms.ModelForm):

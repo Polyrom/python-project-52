@@ -12,9 +12,11 @@ class Task(models.Model):
                                     through='Labeled',
                                     through_fields=('task', 'label'),
                                     blank=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               on_delete=models.PROTECT,
                                related_name='author')
-    executor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
+    executor = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                 on_delete=models.PROTECT,
                                  related_name='executive')
     created_at = models.DateTimeField(auto_now_add=True)
 

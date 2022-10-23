@@ -84,4 +84,3 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
             )
             return redirect(self.success_url)
         return response
-
