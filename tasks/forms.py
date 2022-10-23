@@ -6,6 +6,7 @@ from tasks.models import Task
 from statuses.models import Status
 from labels.models import Label
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 class TaskForm(forms.ModelForm):
@@ -26,7 +27,8 @@ class TaskFilter(FilterSet):
 
     all_statuses = Status.objects.values_list('id', 'name', named=True).all()
     status = ChoiceFilter(label='Статус', choices=all_statuses)
-    all_executors = User.objects.values_list(
+    user = get_user_model()
+    all_executors = user.objects.values_list(
         'id',
         Concat('first_name', Value(' '), 'last_name'),
         named=True).all()

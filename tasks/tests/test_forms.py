@@ -1,8 +1,8 @@
 from django.test import TestCase, Client
 from tasks.forms import TaskForm
-from django.contrib.auth.models import User
 from labels.models import Label
 from statuses.models import Status
+from users.models import User
 
 
 class TestForms(TestCase):

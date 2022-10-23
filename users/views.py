@@ -1,5 +1,4 @@
 from django.views.generic import ListView, CreateView
-from django.contrib.auth.models import User
 from django.db.models.deletion import ProtectedError
 from django.views.generic.edit import DeleteView, UpdateView
 from users.forms import UserCreateForm
@@ -8,10 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.contrib.auth import get_user_model
 
 
 class UsersListView(ListView):
-    model = User
+    model = get_user_model()
     template_name = 'users/users_list.html'
     context_object_name = 'users'
 
@@ -26,7 +26,7 @@ class SignupView(SuccessMessageMixin, CreateView):
 
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = User
+    model = get_user_model()
     form_class = UserCreateForm
     template_name = 'users/user_update.html'
     success_url = '/users/'
@@ -51,7 +51,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = User
+    model = get_user_model()
     success_url = '/users'
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
@@ -84,3 +84,4 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
             )
             return redirect(self.success_url)
         return response
+

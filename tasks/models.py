@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from task_manager import settings
 from statuses.models import Status
 from labels.models import Label
 
@@ -12,9 +12,9 @@ class Task(models.Model):
                                     through='Labeled',
                                     through_fields=('task', 'label'),
                                     blank=True)
-    author = models.ForeignKey(User, on_delete=models.PROTECT,
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
                                related_name='author')
-    executor = models.ForeignKey(User, on_delete=models.PROTECT,
+    executor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
                                  related_name='executive')
     created_at = models.DateTimeField(auto_now_add=True)
 
