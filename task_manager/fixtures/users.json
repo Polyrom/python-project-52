@@ -1,0 +1,20 @@
+[
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "FakePassword1",
+    "last_login": "2022-10-24T14:05:35.793Z",
+    "is_superuser": false,
+    "username": "Boss",
+    "first_name": "Michael",
+    "last_name": "Scott",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-10-23T16:16:12.160Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

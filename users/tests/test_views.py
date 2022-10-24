@@ -4,19 +4,11 @@ from users.models import User
 
 
 class TestViews(TestCase):
+    fixtures = ['users.json']
 
     def setUp(self):
         self.client = Client()
-
-        self.user = User.objects.create(
-            pk=1,
-            username='Boss',
-            first_name='Michael',
-            last_name='Scott'
-        )
-        self.user.set_password('12345')
-        self.user.save()
-
+        self.user = User.objects.get(pk=1)
         self.users_list = reverse('users.list')
         self.create_user = reverse('user.create')
         self.delete_user = reverse('user.delete', kwargs={'pk': 1})
@@ -45,7 +37,7 @@ class TestViews(TestCase):
         self.assertEquals(User.objects.count(), 2)
 
     def test_update_user_template_correct_user(self):
-        self.client.force_login(user=self.user)
+        self.client.force_login(self.user)
         response = self.client.get(self.update_user)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_update.html')
@@ -55,26 +47,26 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
     def test_update_user(self):
-        self.client.force_login(user=self.user)
+        self.client.force_login(self.user)
         data = {
             'first_name': 'Michael',
             'last_name': 'Scott',
             'username': 'RegionalManager',
-            'password1': '12345',
-            'password2': '12345'
+            'password1': 'FakePassword2',
+            'password2': 'FakePassword2'
         }
         response = self.client.post(self.update_user, data=data)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(User.objects.first().username, 'RegionalManager')
 
     def test_delete_user_template(self):
-        self.client.force_login(user=self.user)
+        self.client.force_login(self.user)
         response = self.client.get(self.delete_user)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_delete.html')
 
     def test_delete_user(self):
-        self.client.force_login(user=self.user)
+        self.client.force_login(self.user)
         response = self.client.delete(self.delete_user)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(User.objects.count(), 0)
