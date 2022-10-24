@@ -2,23 +2,28 @@ from django.test import TestCase, Client
 from tasks.forms import TaskForm
 from labels.models import Label
 from statuses.models import Status
-from users.models import User
+from django.contrib.auth import get_user_model
 
 
 class TestForms(TestCase):
+    fixtures = [
+        'users.json',
+        'labels.json',
+        'statuses.json'
+    ]
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='random_user')
-        self.client.force_login(user=self.user)
-        self.label = Label.objects.create(name='random_label')
-        self.status = Status.objects.create(name='random_status')
+        self.user = get_user_model().objects.get(pk='1')
+        self.client.force_login(self.user)
+        self.label = Label.objects.get(pk='1')
+        self.status = Status.objects.get(pk='1')
 
     def test_task_form_valid_data(self):
         form = TaskForm(data={'name': 'random',
                               'description': 'random_desc',
                               'status': self.status.pk,
-                              'label': ['1'],
+                              'label': self.label.pk,
                               'executor': self.user.pk})
         self.assertTrue(form.is_valid())
 

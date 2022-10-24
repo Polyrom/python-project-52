@@ -6,11 +6,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.mixins import NotLoggedInMessageMixin, WrongUserMessageMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from users.models import User
+from django.contrib.auth import get_user_model
 
 
 class UsersListView(ListView):
-    model = User
+    model = get_user_model()
     template_name = 'users/users_list.html'
     context_object_name = 'users'
 
@@ -26,7 +26,7 @@ class SignupView(SuccessMessageMixin, CreateView):
 
 class UserUpdateView(SuccessMessageMixin, NotLoggedInMessageMixin,
                      WrongUserMessageMixin, UpdateView):
-    model = User
+    model = get_user_model()
     form_class = UserCreateForm
     template_name = 'users/user_update.html'
     success_url = '/users/'
@@ -35,7 +35,7 @@ class UserUpdateView(SuccessMessageMixin, NotLoggedInMessageMixin,
 
 class UserDeleteView(SuccessMessageMixin, NotLoggedInMessageMixin,
                      WrongUserMessageMixin, DeleteView):
-    model = User
+    model = get_user_model()
     success_url = '/users'
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
