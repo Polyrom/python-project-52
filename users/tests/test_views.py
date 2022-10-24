@@ -27,12 +27,12 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/users_list.html')
 
-    def test_signup_GET(self):
+    def test_signup_template(self):
         response = self.client.get(self.create_user)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_create.html')
 
-    def test_signup_POST(self):
+    def test_signup(self):
         data = {
             'first_name': 'Dwight',
             'last_name': 'Shrute',
@@ -44,17 +44,17 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         self.assertEquals(User.objects.count(), 2)
 
-    def test_update_user_GET_correct_user(self):
+    def test_update_user_template_correct_user(self):
         self.client.force_login(user=self.user)
         response = self.client.get(self.update_user)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_update.html')
 
-    def test_update_user_GET_wrong_user(self):
+    def test_update_user_template_wrong_user(self):
         response = self.client.get(self.update_user)
         self.assertEquals(response.status_code, 302)
 
-    def test_update_user_POST(self):
+    def test_update_user(self):
         self.client.force_login(user=self.user)
         data = {
             'first_name': 'Michael',
@@ -67,13 +67,13 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         self.assertEquals(User.objects.first().username, 'RegionalManager')
 
-    def test_delete_user_GET(self):
+    def test_delete_user_template(self):
         self.client.force_login(user=self.user)
         response = self.client.get(self.delete_user)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/user_delete.html')
 
-    def test_delete_user_POST(self):
+    def test_delete_user(self):
         self.client.force_login(user=self.user)
         response = self.client.delete(self.delete_user)
         self.assertEquals(response.status_code, 302)

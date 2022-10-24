@@ -6,63 +6,35 @@ from django.db.models.deletion import ProtectedError
 from django.contrib import messages
 from statuses.models import Status
 from statuses.forms import StatusForm
-from django.shortcuts import redirect
-from task_manager import settings
+from task_manager.mixins import NotLoggedInMessageMixin
 
 
-class StatusesListView(LoginRequiredMixin, ListView):
+class StatusesListView(NotLoggedInMessageMixin, LoginRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/statuses_list.html'
     context_object_name = 'statuses'
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if not request.user.is_authenticated:
-            messages.add_message(
-                request, messages.ERROR,
-                'Вы не авторизованы! Пожалуйста, выполните вход.'
-            )
-            return redirect(settings.LOGIN_URL)
-        return response
 
-
-class StatusCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class StatusCreateView(NotLoggedInMessageMixin, LoginRequiredMixin,
+                       SuccessMessageMixin, CreateView):
     model = Status
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
     success_url = '/statuses/'
     success_message = 'Статус успешно создан'
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if not request.user.is_authenticated:
-            messages.add_message(
-                request, messages.ERROR,
-                'Вы не авторизованы! Пожалуйста, выполните вход.'
-            )
-            return redirect(settings.LOGIN_URL)
-        return response
 
-
-class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class StatusUpdateView(NotLoggedInMessageMixin, LoginRequiredMixin,
+                       SuccessMessageMixin, UpdateView):
     model = Status
     form_class = StatusForm
     template_name = 'statuses/status_update.html'
     success_url = '/statuses/'
     success_message = 'Статус успешно изменён'
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if not request.user.is_authenticated:
-            messages.add_message(
-                request, messages.ERROR,
-                'Вы не авторизованы! Пожалуйста, выполните вход.'
-            )
-            return redirect(settings.LOGIN_URL)
-        return response
 
-
-class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class StatusDeleteView(NotLoggedInMessageMixin, SuccessMessageMixin,
+                       LoginRequiredMixin, DeleteView):
     model = Status
     context_object_name = 'status'
     success_url = '/statuses/'
@@ -81,13 +53,3 @@ class StatusDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
                 'Невозможно удалить статус, потому что он используется'
             )
             return HttpResponseRedirect(self.success_url)
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        if not request.user.is_authenticated:
-            messages.add_message(
-                request, messages.ERROR,
-                'Вы не авторизованы! Пожалуйста, выполните вход.'
-            )
-            return redirect(settings.LOGIN_URL)
-        return response
