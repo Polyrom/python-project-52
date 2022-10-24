@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from users.models import User
+from django.contrib.auth import get_user_model
 
 
 class TestViews(TestCase):
@@ -8,7 +8,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.get(pk=1)
+        self.user = get_user_model().objects.get(pk=1)
         self.users_list = reverse('users.list')
         self.create_user = reverse('user.create')
         self.delete_user = reverse('user.delete', kwargs={'pk': 1})
@@ -34,7 +34,7 @@ class TestViews(TestCase):
         }
         response = self.client.post(self.create_user, data=data)
         self.assertEquals(response.status_code, 302)
-        self.assertEquals(User.objects.count(), 2)
+        self.assertEquals(get_user_model().objects.count(), 2)
 
     def test_update_user_template_correct_user(self):
         self.client.force_login(self.user)
@@ -57,7 +57,10 @@ class TestViews(TestCase):
         }
         response = self.client.post(self.update_user, data=data)
         self.assertEquals(response.status_code, 302)
-        self.assertEquals(User.objects.first().username, 'RegionalManager')
+        self.assertEquals(
+            get_user_model().objects.first().username,
+            'RegionalManager'
+        )
 
     def test_delete_user_template(self):
         self.client.force_login(self.user)
@@ -69,4 +72,4 @@ class TestViews(TestCase):
         self.client.force_login(self.user)
         response = self.client.delete(self.delete_user)
         self.assertEquals(response.status_code, 302)
-        self.assertEquals(User.objects.count(), 0)
+        self.assertEquals(get_user_model().objects.count(), 0)

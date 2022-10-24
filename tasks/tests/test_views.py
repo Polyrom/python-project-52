@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 from tasks.models import Task
-from users.models import User
 from labels.models import Label
 from statuses.models import Status
 
@@ -16,7 +16,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.get(pk='1')
+        self.user = get_user_model().objects.get(pk='1')
         self.client.force_login(user=self.user)
         self.label = Label.objects.get(pk='1')
         self.status = Status.objects.get(pk='1')

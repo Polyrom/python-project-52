@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from statuses.models import Status
-from users.models import User
+from django.contrib.auth import get_user_model
 
 
 class TestViews(TestCase):
@@ -9,7 +9,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.get(pk=1)
+        self.user = get_user_model().objects.get(pk=1)
         self.client.force_login(self.user)
         self.status = Status.objects.get(pk=1)
         self.statuses_list = reverse('statuses.list')
