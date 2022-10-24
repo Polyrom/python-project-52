@@ -5,11 +5,13 @@ from users.models import User
 
 
 class TestViews(TestCase):
+    fixtures = ['users.json', 'statuses.json']
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='random')
-        self.client.force_login(user=self.user)
+        self.user = User.objects.get(pk=1)
+        self.client.force_login(self.user)
+        self.status = Status.objects.get(pk=1)
         self.statuses_list = reverse('statuses.list')
         self.create_status = reverse('status.create')
         self.update_status = reverse('status.update', kwargs={'pk': 1})
@@ -20,38 +22,34 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/statuses_list.html')
 
-    def test_create_status_GET(self):
+    def test_create_status_template(self):
         response = self.client.get(self.create_status)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/status_create.html')
 
-    def test_create_status_POST(self):
+    def test_create_status(self):
         data = {'name': 'random'}
         response = self.client.post(self.create_status, data=data)
         self.assertEquals(response.status_code, 302)
-        self.assertEquals(Status.objects.count(), 1)
+        self.assertEquals(Status.objects.count(), 2)
 
-    def test_update_status_GET(self):
-        Status.objects.create(pk=1, name='title')
+    def test_update_status_template(self):
         response = self.client.get(self.update_status)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/status_update.html')
 
-    def test_update_status_POST(self):
-        Status.objects.create(pk=1, name='title')
+    def test_update_status(self):
         data = {'name': 'random'}
         response = self.client.post(self.update_status, data=data)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(Status.objects.get(pk=1).name, 'random')
 
-    def test_delete_status_GET(self):
-        Status.objects.create(pk=1, name='title')
+    def test_delete_status_template(self):
         response = self.client.get(self.delete_status)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/status_delete.html')
 
-    def test_delete_status_POST(self):
-        Status.objects.create(pk=1, name='title')
+    def test_delete_status(self):
         response = self.client.delete(self.delete_status)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(Status.objects.count(), 0)
