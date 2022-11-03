@@ -3,7 +3,7 @@ from django.db.models.deletion import ProtectedError
 from django.views.generic.edit import DeleteView, UpdateView
 from users.forms import UserCreateForm
 from django.contrib.messages.views import SuccessMessageMixin
-from task_manager.mixins import NotLoggedInMessageMixin, WrongUserMessageMixin
+from task_manager.mixins import LoginRequiredMessageMixin, WrongUserMessageMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
@@ -24,21 +24,23 @@ class SignupView(SuccessMessageMixin, CreateView):
         return '/login'
 
 
-class UserUpdateView(SuccessMessageMixin, NotLoggedInMessageMixin,
-                     WrongUserMessageMixin, UpdateView):
+class UserUpdateView(WrongUserMessageMixin,
+                     SuccessMessageMixin, UpdateView):
     model = get_user_model()
     form_class = UserCreateForm
     template_name = 'users/user_update.html'
     success_url = '/users/'
     success_message = 'Пользователь успешно изменён'
+    redirect_field_name = ''
 
 
-class UserDeleteView(SuccessMessageMixin, NotLoggedInMessageMixin,
-                     WrongUserMessageMixin, DeleteView):
+class UserDeleteView(WrongUserMessageMixin,
+                     SuccessMessageMixin, DeleteView):
     model = get_user_model()
-    success_url = '/users'
+    success_url = '/users/'
     template_name = 'users/user_delete.html'
     success_message = 'Пользователь успешно удалён'
+    redirect_field_name = ''
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
