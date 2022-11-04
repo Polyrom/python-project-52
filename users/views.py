@@ -3,10 +3,11 @@ from django.db.models.deletion import ProtectedError
 from django.views.generic.edit import DeleteView, UpdateView
 from users.forms import UserCreateForm
 from django.contrib.messages.views import SuccessMessageMixin
-from task_manager.mixins import LoginRequiredMessageMixin, WrongUserMessageMixin
+from task_manager.mixins import WrongUserMessageMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext as _
 
 
 class UsersListView(ListView):
@@ -18,7 +19,7 @@ class UsersListView(ListView):
 class SignupView(SuccessMessageMixin, CreateView):
     form_class = UserCreateForm
     template_name = 'users/user_create.html'
-    success_message = 'Пользователь успешно зарегистрирован'
+    success_message = _('User signed up successfully')
 
     def get_success_url(self):
         return '/login'
@@ -30,7 +31,7 @@ class UserUpdateView(WrongUserMessageMixin,
     form_class = UserCreateForm
     template_name = 'users/user_update.html'
     success_url = '/users/'
-    success_message = 'Пользователь успешно изменён'
+    success_message = _('User updated successfully')
     redirect_field_name = ''
 
 
@@ -39,7 +40,7 @@ class UserDeleteView(WrongUserMessageMixin,
     model = get_user_model()
     success_url = '/users/'
     template_name = 'users/user_delete.html'
-    success_message = 'Пользователь успешно удалён'
+    success_message = _('User deleted successfully')
     redirect_field_name = ''
 
     def post(self, request, *args, **kwargs):
@@ -51,6 +52,6 @@ class UserDeleteView(WrongUserMessageMixin,
         except ProtectedError:
             messages.error(
                 request,
-                'Невозможно удалить пользователя, потому что он используется'
+                _('Impossible to delete user as it is used')
             )
             return HttpResponseRedirect(self.success_url)

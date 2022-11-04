@@ -6,6 +6,7 @@ from labels.forms import LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from task_manager.mixins import LoginRequiredMessageMixin
+from django.utils.translation import gettext as _
 
 
 class LabelsListView(LoginRequiredMessageMixin, ListView):
@@ -20,7 +21,7 @@ class LabelCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView
     form_class = LabelForm
     template_name = 'labels/label_create.html'
     success_url = '/labels/'
-    success_message = 'Метка успешно создана'
+    success_message = _('Label created successfully')
     redirect_field_name = ''
 
 
@@ -29,7 +30,7 @@ class LabelUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView
     form_class = LabelForm
     template_name = 'labels/label_update.html'
     success_url = '/labels/'
-    success_message = 'Метка успешно изменена'
+    success_message = _('Label updated successfully')
     redirect_field_name = ''
 
 
@@ -38,7 +39,7 @@ class LabelDeleteView(LoginRequiredMessageMixin, SuccessMessageMixin, DeleteView
     context_object_name = 'label'
     success_url = '/labels/'
     template_name = 'labels/label_delete.html'
-    success_message = 'Метка успешно удалена'
+    success_message = _('Label deleted successfully')
     redirect_field_name = ''
 
     def post(self, request, *args, **kwargs):
@@ -50,6 +51,6 @@ class LabelDeleteView(LoginRequiredMessageMixin, SuccessMessageMixin, DeleteView
         except ProtectedError:
             messages.error(
                 self.request,
-                'Невозможно удалить метку, потому что она используется'
+                _('Impossible to delete label as it is used')
             )
             return HttpResponseRedirect(self.success_url)

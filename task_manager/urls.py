@@ -26,4 +26,5 @@ urlpatterns = [
     path('statuses/', include('statuses.urls')),
     path('tasks/', include('tasks.urls')),
     path('labels/', include('labels.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

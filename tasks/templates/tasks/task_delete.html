@@ -3,11 +3,11 @@
 {% load i18n %}
 {% block content %}
 
-<h1 class="my-4">{% translate "Удаление задачи" %}</h1>
+<h1 class="my-4">{% trans "Delete task" %}</h1>
 
 <form method="post">{% csrf_token %}
-  <p>{% translate "Вы уверены, что хотите удалить"%} {{ task.title }}?</p>
-  <input type="submit" class="btn btn-danger" value="Да, удалить"/>
+  <p>{% trans "Are you sure you want to delete" %} {{ task.name }}?</p>
+  <input type="submit" class="btn btn-danger" value="{% trans 'Да, удалить' %}"/>
 </form>
 
 {% endblock %}

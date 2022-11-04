@@ -4,10 +4,10 @@
 {% load i18n %}
 
 {% block content %}
-<h1 class="my-4">{% translate "Создать задачу" %}</h1>
+<h1 class="my-4">{% trans "Create task" %}</h1>
 
 <form method="post" class="sign-up-form">{% csrf_token %}
     {% bootstrap_form form %}
-    <input type="submit" class="btn btn-primary" value="{% translate 'Создать' %}">
+    <input type="submit" class="btn btn-primary" value="{% trans 'Create' %}">
 </form>
 {% endblock %}

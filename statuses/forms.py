@@ -1,5 +1,6 @@
 from django import forms
 from statuses.models import Status
+from django.utils.translation import gettext_lazy as _
 
 
 class StatusForm(forms.ModelForm):
@@ -8,5 +9,5 @@ class StatusForm(forms.ModelForm):
         model = Status
         fields = ('name',)
         labels = {
-            'name': 'Имя'
+            'name': _('Name')
         }

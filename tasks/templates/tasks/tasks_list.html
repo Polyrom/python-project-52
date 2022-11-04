@@ -4,15 +4,15 @@
 {% load i18n %}
 
 {% block content %}
-    <h1 class="my-4">{% translate "Задачи" %}</h1>
+    <h1 class="my-4">{% trans "Tasks" %}</h1>
 
-    <a class="nav-link" href="{% url 'task.create' %}">{% translate "Создать задачу" %}</a>
+    <a class="nav-link" href="{% url 'task.create' %}">{% translate "Create task" %}</a>
 
     <div class="card mb-3">
         <div class="card-body bg-light">
             <form class="form-inline center" method="get">
                 {% bootstrap_form filter.form field_class="ml-4 mr-4 my-3" %}
-                <input type="submit" class="btn btn-primary" value="{% translate 'Показать' %}">
+                <input type="submit" class="btn btn-primary" value="{% trans 'Show' %}">
             </form>
         </div>
     </div>
@@ -21,11 +21,11 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>{% translate "Имя" %}</th>
-            <th>{% translate "Статус" %}</th>
-            <th>{% translate "Автор" %}</th>
-            <th>{% translate "Исполнитель" %}</th>
-            <th>{% translate "Дата создания" %}</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Author" %}</th>
+            <th>{% trans "Executor" %}</th>
+            <th>{% trans "Created at" %}</th>
             <th></th>
         </tr>
         </thead>
@@ -39,9 +39,9 @@
             <td>{{ obj.executor.first_name }} {{ obj.executor.last_name }}</td>
             <td>{{ obj.created_at }}</td>
             <td>
-              <a href="{% url 'task.update' pk=obj.id %}">{% translate "Изменить" %}</a>
+              <a href="{% url 'task.update' pk=obj.id %}">{% trans "Update" %}</a>
               <br>
-              <a href="{% url 'task.delete' pk=obj.id %}">{% translate "Удалить" %}</a>
+              <a href="{% url 'task.delete' pk=obj.id %}">{% trans "Delete" %}</a>
             </td>
         </tr>
         </tbody>

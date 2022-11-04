@@ -7,6 +7,7 @@ from tasks.models import Task
 from tasks.forms import TaskForm
 from django.shortcuts import redirect
 from task_manager.mixins import LoginRequiredMessageMixin
+from django.utils.translation import gettext as _
 
 
 class TasksListView(LoginRequiredMessageMixin, FilterView):
@@ -20,7 +21,7 @@ class TaskCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView)
     form_class = TaskForm
     template_name = 'tasks/task_create.html'
     success_url = '/tasks/'
-    success_message = 'Задача успешно создана'
+    success_message = _('Task created successfully')
     redirect_field_name = ''
 
     def form_valid(self, form):
@@ -33,7 +34,7 @@ class TaskUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView)
     form_class = TaskForm
     template_name = 'tasks/task_update.html'
     success_url = '/tasks/'
-    success_message = 'Задача успешно изменена'
+    success_message = _('Task updated successfully')
     redirect_field_name = ''
 
 
@@ -42,14 +43,14 @@ class TaskDeleteView(LoginRequiredMessageMixin, SuccessMessageMixin, DeleteView)
     context_object_name = 'task'
     success_url = '/tasks/'
     template_name = 'tasks/task_delete.html'
-    success_message = 'Задача успешно удалена'
+    success_message = _('Task deleted successfully')
     redirect_field_name = ''
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user == self.model.objects.get(id=kwargs['pk']).author:
             messages.add_message(
                 request, messages.ERROR,
-                'Задачу может удалить только её автор'
+                _('Task can be deleted only by its author')
             )
             return redirect(self.success_url)
         return super().dispatch(request, *args, **kwargs)
