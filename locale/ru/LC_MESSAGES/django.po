@@ -320,7 +320,7 @@ msgstr "Пользователь успешно зарегистрирован"
 
 #: users/views.py:34
 msgid "User updated successfully"
-msgstr "Пользователь успешно изменен"
+msgstr "Пользователь успешно изменён"
 
 #: users/views.py:43
 msgid "User deleted successfully"
