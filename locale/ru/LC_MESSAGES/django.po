@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-04 05:15+0400\n"
+"POT-Creation-Date: 2022-11-04 06:06+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,7 @@ msgstr "Вы уверены, что хотите удалить"
 
 #: labels/templates/labels/label_delete.html:10
 #: statuses/templates/statuses/status_delete.html:10
+#: tasks/templates/tasks/task_delete.html:10
 #: users/templates/users/user_delete.html:10
 msgid "Yes, delete"
 msgstr "Да, удалить"
@@ -249,10 +250,6 @@ msgstr "Создать задачу"
 msgid "Delete task"
 msgstr "Удалить задачу"
 
-#: tasks/templates/tasks/task_delete.html:10
-msgid "Да, удалить"
-msgstr "Yes, delete"
-
 #: tasks/templates/tasks/task_details.html:6
 msgid "Task details"
 msgstr "Просмотр задачи"
@@ -329,3 +326,6 @@ msgstr "Пользователь успешно удалён"
 #: users/views.py:55
 msgid "Impossible to delete user as it is used"
 msgstr "Невозможно удалить пользователя, потому что он используется"
+
+#~ msgid "Да, удалить"
+#~ msgstr "Yes, delete"
