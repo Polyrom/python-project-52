@@ -24,11 +24,11 @@ class WrongUserMessageMixin(LoginRequiredMessageMixin):
     wrong_user_message = _('You are not allowed to update other users')
 
     def test_func(self):
-        return super().test_func and self.request.user.pk == self.kwargs['pk']
+        return super().test_func and (self.request.user.pk == self.kwargs['pk'])
 
     def handle_no_permission(self):
         if not super().test_func:
-            super().handle_no_permission()
+            return super().handle_no_permission()
         messages.add_message(
             self.request, messages.ERROR,
             self.wrong_user_message
