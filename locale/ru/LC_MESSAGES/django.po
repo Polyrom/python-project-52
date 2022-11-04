@@ -324,7 +324,7 @@ msgstr "Пользователь успешно изменён"
 
 #: users/views.py:43
 msgid "User deleted successfully"
-msgstr "Пользователь успешно удален"
+msgstr "Пользователь успешно удалён"
 
 #: users/views.py:55
 msgid "Impossible to delete user as it is used"
