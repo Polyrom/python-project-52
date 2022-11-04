@@ -16,7 +16,8 @@ class TasksListView(LoginRequiredMessageMixin, FilterView):
     redirect_field_name = ''
 
 
-class TaskCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(LoginRequiredMessageMixin,
+                     SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = 'tasks/task_create.html'
@@ -29,7 +30,8 @@ class TaskCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView)
         return super(TaskCreateView, self).form_valid(form)
 
 
-class TaskUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMessageMixin,
+                     SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = 'tasks/task_update.html'
@@ -38,7 +40,8 @@ class TaskUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView)
     redirect_field_name = ''
 
 
-class TaskDeleteView(LoginRequiredMessageMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMessageMixin,
+                     SuccessMessageMixin, DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = '/tasks/'

@@ -16,7 +16,8 @@ class LabelsListView(LoginRequiredMessageMixin, ListView):
     redirect_field_name = ''
 
 
-class LabelCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView):
+class LabelCreateView(LoginRequiredMessageMixin,
+                      SuccessMessageMixin, CreateView):
     model = Label
     form_class = LabelForm
     template_name = 'labels/label_create.html'
@@ -25,7 +26,8 @@ class LabelCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView
     redirect_field_name = ''
 
 
-class LabelUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView):
+class LabelUpdateView(LoginRequiredMessageMixin,
+                      SuccessMessageMixin, UpdateView):
     model = Label
     form_class = LabelForm
     template_name = 'labels/label_update.html'
@@ -34,7 +36,8 @@ class LabelUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView
     redirect_field_name = ''
 
 
-class LabelDeleteView(LoginRequiredMessageMixin, SuccessMessageMixin, DeleteView):
+class LabelDeleteView(LoginRequiredMessageMixin,
+                      SuccessMessageMixin, DeleteView):
     model = Label
     context_object_name = 'label'
     success_url = '/labels/'

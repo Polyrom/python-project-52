@@ -16,7 +16,8 @@ class StatusesListView(LoginRequiredMessageMixin, ListView):
     redirect_field_name = ''
 
 
-class StatusCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateView):
+class StatusCreateView(LoginRequiredMessageMixin,
+                       SuccessMessageMixin, CreateView):
     model = Status
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
@@ -25,7 +26,8 @@ class StatusCreateView(LoginRequiredMessageMixin, SuccessMessageMixin, CreateVie
     redirect_field_name = ''
 
 
-class StatusUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateView):
+class StatusUpdateView(LoginRequiredMessageMixin,
+                       SuccessMessageMixin, UpdateView):
     model = Status
     form_class = StatusForm
     template_name = 'statuses/status_update.html'
@@ -34,7 +36,8 @@ class StatusUpdateView(LoginRequiredMessageMixin, SuccessMessageMixin, UpdateVie
     redirect_field_name = ''
 
 
-class StatusDeleteView(LoginRequiredMessageMixin, SuccessMessageMixin, DeleteView):
+class StatusDeleteView(LoginRequiredMessageMixin,
+                       SuccessMessageMixin, DeleteView):
     model = Status
     context_object_name = 'status'
     success_url = '/statuses/'
