@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-04 04:49+0400\n"
+"POT-Creation-Date: 2022-11-04 05:15+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,19 +91,19 @@ msgstr "Дата создания"
 msgid "Delete"
 msgstr "Удалить"
 
-#: labels/views.py:24
+#: labels/views.py:25
 msgid "Label created successfully"
 msgstr "Метка успешно создана"
 
-#: labels/views.py:33
+#: labels/views.py:35
 msgid "Label updated successfully"
 msgstr "Метка успешно изменена"
 
-#: labels/views.py:42
+#: labels/views.py:45
 msgid "Label deleted successfully"
 msgstr "Метка успешно удалена"
 
-#: labels/views.py:54
+#: labels/views.py:57
 msgid "Impossible to delete label as it is used"
 msgstr "Невозможно удалить метку, потому что она используется"
 
@@ -125,19 +125,19 @@ msgstr "Изменить статус"
 msgid "Statuses"
 msgstr "Статусы"
 
-#: statuses/views.py:24
+#: statuses/views.py:25
 msgid "Status created successfully"
 msgstr "Статус успешно создан"
 
-#: statuses/views.py:33
+#: statuses/views.py:35
 msgid "Status updated successfully"
 msgstr "Статус успешно изменен"
 
-#: statuses/views.py:42
+#: statuses/views.py:45
 msgid "Status deleted successfully"
 msgstr "Статус успешно удален"
 
-#: statuses/views.py:54
+#: statuses/views.py:57
 msgid "Impossible to delete status as it is used"
 msgstr "Невозможно удалить статус, потому что она используется"
 
@@ -168,13 +168,11 @@ msgstr "Войдите или зарегистрируйтесь"
 #: task_manager/templates/index.html:14
 #: task_manager/templates/layouts/base.html:38
 #: task_manager/templates/registration/login.html:6
-#: task_manager/templates/registration/login.html:10
 msgid "Log in"
 msgstr "Вход"
 
 #: task_manager/templates/index.html:15
 #: task_manager/templates/layouts/base.html:39
-#: users/templates/users/user_create.html:10
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -205,6 +203,10 @@ msgstr "Выход"
 #: task_manager/templates/layouts/base.html:53
 msgid "More Projects"
 msgstr "Другие проекты"
+
+#: task_manager/templates/registration/login.html:10
+msgid "Log In"
+msgstr "Войти"
 
 #: task_manager/views.py:14
 msgid "You are logged in"
@@ -268,25 +270,29 @@ msgstr "Изменить задачу"
 msgid "Show"
 msgstr "Показать"
 
-#: tasks/views.py:24
+#: tasks/views.py:25
 msgid "Task created successfully"
 msgstr "Задача успешно создана"
 
-#: tasks/views.py:37
+#: tasks/views.py:39
 msgid "Task updated successfully"
 msgstr "Задача успешно изменена"
 
-#: tasks/views.py:46
+#: tasks/views.py:49
 msgid "Task deleted successfully"
 msgstr "Задача успешно удалена"
 
-#: tasks/views.py:53
+#: tasks/views.py:56
 msgid "Task can be deleted only by its author"
 msgstr "Задачу может удалить только её автор"
 
 #: users/templates/users/user_create.html:6
 msgid "Signing up"
 msgstr "Регистрация"
+
+#: users/templates/users/user_create.html:10
+msgid "Sign Up"
+msgstr "Зарегистрировать"
 
 #: users/templates/users/user_delete.html:6
 msgid "Delete user"
