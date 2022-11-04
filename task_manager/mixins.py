@@ -27,7 +27,7 @@ class WrongUserMessageMixin(LoginRequiredMessageMixin):
         return super().test_func and (self.request.user.pk == self.kwargs['pk'])
 
     def handle_no_permission(self):
-        if not super().test_func:
+        if not self.request.user.is_authenticated:
             return super().handle_no_permission()
         messages.add_message(
             self.request, messages.ERROR,
