@@ -1,0 +1,28 @@
+{
+  "new_user": {
+    "first_name": "Dwight",
+    "last_name": "Shrute",
+    "username": "BestSalesman",
+    "password1": "scranton",
+    "password2": "scranton"
+  },
+  "update_user_info": {
+    "first_name": "Michael",
+    "last_name": "Scott",
+    "username": "RegionalManager",
+    "password1": "FakePassword1",
+    "password2": "FakePassword1"
+  },
+  "label": {
+    "name": "random"
+  },
+  "status": {
+    "name": "random"
+  },
+  "task": {
+    "name": "random",
+    "status": 1,
+    "label": 1,
+    "executor": 1
+  }
+}

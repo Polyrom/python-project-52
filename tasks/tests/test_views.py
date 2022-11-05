@@ -1,9 +1,15 @@
+import os
+import json
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tasks.models import Task
 from labels.models import Label
 from statuses.models import Status
+
+NEW_OBJECTS_PATH = os.path.join('task_manager',
+                                'fixtures',
+                                'new_objects.json')
 
 
 class TestViews(TestCase):
@@ -36,20 +42,23 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'tasks/task_create.html')
 
     def test_create_task(self):
-        data = {
-            'name': 'random',
-            'status': self.status.pk,
-            'label': self.label.pk,
-            'executor': self.user.pk
-        }
-        response = self.client.post(self.create_task_url, data=data)
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(Task.objects.count(), 2)
+        with open(NEW_OBJECTS_PATH, 'rb') as new_objects:
+            data = json.load(new_objects)['task']
+            response = self.client.post(self.create_task_url, data=data)
+            self.assertEquals(response.status_code, 302)
+            self.assertEquals(Task.objects.count(), 2)
 
     def test_update_task_template(self):
         response = self.client.get(self.update_task_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/task_update.html')
+
+    def test_update_task(self):
+        with open(NEW_OBJECTS_PATH, 'rb') as new_objects:
+            data = json.load(new_objects)['task']
+            response = self.client.post(self.update_task_url, data=data)
+            self.assertEquals(response.status_code, 302)
+            self.assertEquals(Task.objects.get(pk=1).name, 'random')
 
     def test_delete_task_template(self):
         response = self.client.get(self.delete_task_url)

@@ -1,6 +1,12 @@
+import os
+import json
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+
+NEW_OBJECTS_PATH = os.path.join('task_manager',
+                                'fixtures',
+                                'new_objects.json')
 
 
 class TestViews(TestCase):
@@ -25,18 +31,13 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'users/user_create.html')
 
     def test_signup(self):
-        data = {
-            'first_name': 'Dwight',
-            'last_name': 'Shrute',
-            'username': 'BestSalesman',
-            'password1': 'scranton',
-            'password2': 'scranton'
-        }
-        response = self.client.post(self.create_user_url, data=data)
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(get_user_model().objects.count(), 2)
-        self.assertEquals(get_user_model().objects.get(pk=2).username,
-                          'BestSalesman')
+        with open(NEW_OBJECTS_PATH, 'rb') as new_objects:
+            user_data = json.load(new_objects)['new_user']
+            response = self.client.post(self.create_user_url, data=user_data)
+            self.assertEquals(response.status_code, 302)
+            self.assertEquals(get_user_model().objects.count(), 2)
+            self.assertEquals(get_user_model().objects.get(pk=2).username,
+                              'BestSalesman')
 
     def test_update_user_template_correct_user(self):
         self.client.force_login(self.user)
@@ -49,20 +50,15 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
     def test_update_user(self):
-        self.client.force_login(self.user)
-        data = {
-            'first_name': 'Michael',
-            'last_name': 'Scott',
-            'username': 'RegionalManager',
-            'password1': 'FakePassword2',
-            'password2': 'FakePassword2'
-        }
-        response = self.client.post(self.update_user_url, data=data)
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(
-            get_user_model().objects.first().username,
-            'RegionalManager'
-        )
+        with open(NEW_OBJECTS_PATH, 'rb') as new_objects:
+            self.client.force_login(self.user)
+            new_user_data = json.load(new_objects)['update_user_info']
+            response = self.client.post(self.update_user_url, data=new_user_data)
+            self.assertEquals(response.status_code, 302)
+            self.assertEquals(
+                get_user_model().objects.first().username,
+                'RegionalManager'
+            )
 
     def test_delete_user_template(self):
         self.client.force_login(self.user)
