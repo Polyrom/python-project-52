@@ -9,7 +9,7 @@ class Task(models.Model):
     description = models.TextField(max_length=3000, blank=True)
     status = models.ForeignKey(Status, on_delete=models.PROTECT, null=True)
     labels = models.ManyToManyField(Label,
-                                    through='Labeled',
+                                    through='TaskLabels',
                                     through_fields=('task', 'label'),
                                     blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -24,6 +24,6 @@ class Task(models.Model):
         return self.name
 
 
-class Labeled(models.Model):
+class TaskLabels(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     label = models.ForeignKey(Label, on_delete=models.PROTECT)
