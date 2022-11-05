@@ -1,11 +1,12 @@
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
-from task_manager.mixins import LoginRequiredMessageMixin, UserMatchesAuthorMixin
 from django_filters.views import FilterView
 from tasks.forms import TaskFilter
 from tasks.models import Task
 from tasks.forms import TaskForm
 from django.utils.translation import gettext as _
+from task_manager.mixins import (LoginRequiredMessageMixin,
+                                 UserMatchesAuthorMixin)
 
 
 class TasksListView(LoginRequiredMessageMixin, FilterView):
