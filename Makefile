@@ -7,6 +7,9 @@ makemigrations:
 migrate:
 	poetry run python manage.py migrate
 
+railway-migrate:
+	poetry run railway run python manage.py migrate
+
 lint:
 	poetry run flake8 task_manager labels users tasks statuses
 
