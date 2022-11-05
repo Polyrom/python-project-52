@@ -53,7 +53,8 @@ class TestViews(TestCase):
         with open(NEW_OBJECTS_PATH, 'rb') as new_objects:
             self.client.force_login(self.user)
             new_user_data = json.load(new_objects)['update_user_info']
-            response = self.client.post(self.update_user_url, data=new_user_data)
+            response = self.client.post(self.update_user_url,
+                                        data=new_user_data)
             self.assertEquals(response.status_code, 302)
             self.assertEquals(
                 get_user_model().objects.first().username,
