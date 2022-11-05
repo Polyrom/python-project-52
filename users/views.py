@@ -1,13 +1,10 @@
 from django.views.generic import ListView, CreateView
-from django.db.models.deletion import ProtectedError
 from django.views.generic.edit import DeleteView, UpdateView
-from users.forms import UserCreateForm
-from django.contrib.messages.views import SuccessMessageMixin
-from task_manager.mixins import WrongUserMessageMixin
-from django.contrib import messages
-from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext as _
+from users.forms import UserCreateForm
+from task_manager.mixins import WrongUserMessageMixin, ObjectUsedMixin
 
 
 class UsersListView(ListView):
@@ -35,23 +32,11 @@ class UserUpdateView(WrongUserMessageMixin,
     redirect_field_name = ''
 
 
-class UserDeleteView(WrongUserMessageMixin,
+class UserDeleteView(WrongUserMessageMixin, ObjectUsedMixin,
                      SuccessMessageMixin, DeleteView):
     model = get_user_model()
+    object_name = 'user'
     success_url = '/users/'
     template_name = 'users/user_delete.html'
     success_message = _('User deleted successfully')
     redirect_field_name = ''
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        try:
-            self.object.delete()
-            messages.success(request, self.success_message)
-            return HttpResponseRedirect(self.success_url)
-        except ProtectedError:
-            messages.error(
-                request,
-                _('Impossible to delete user as it is used')
-            )
-            return HttpResponseRedirect(self.success_url)

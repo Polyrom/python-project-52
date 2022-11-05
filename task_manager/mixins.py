@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect
-from task_manager import settings
+from django.db.models.deletion import ProtectedError
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
+from task_manager import settings
 
 
 class LoginRequiredMessageMixin(UserPassesTestMixin):
@@ -21,6 +23,7 @@ class LoginRequiredMessageMixin(UserPassesTestMixin):
 
 
 class WrongUserMessageMixin(LoginRequiredMessageMixin):
+
     wrong_user_message = _('You are not allowed to update other users')
 
     def test_func(self):
@@ -34,3 +37,31 @@ class WrongUserMessageMixin(LoginRequiredMessageMixin):
             self.wrong_user_message
         )
         return redirect(self.success_url)
+
+
+class UserMatchesAuthorMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user == self.model.objects.get(id=kwargs['pk']).author:
+            messages.add_message(
+                request, messages.ERROR,
+                _('Task can be deleted only by its author')
+            )
+            return redirect(self.success_url)
+        return super().dispatch(request, *args, **kwargs)
+
+
+class ObjectUsedMixin:
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            messages.success(request, self.success_message)
+            return HttpResponseRedirect(self.success_url)
+        except ProtectedError:
+            messages.error(
+                request,
+                _(f'Impossible to delete {self.object_name} as it is used')
+            )
+            return HttpResponseRedirect(self.success_url)

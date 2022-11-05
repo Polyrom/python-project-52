@@ -1,12 +1,9 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models.deletion import ProtectedError
+from django.utils.translation import gettext as _
 from labels.models import Label
 from labels.forms import LabelForm
-from django.http import HttpResponseRedirect
-from django.contrib import messages
-from task_manager.mixins import LoginRequiredMessageMixin
-from django.utils.translation import gettext as _
+from task_manager.mixins import LoginRequiredMessageMixin, ObjectUsedMixin
 
 
 class LabelsListView(LoginRequiredMessageMixin, ListView):
@@ -36,24 +33,12 @@ class LabelUpdateView(LoginRequiredMessageMixin,
     redirect_field_name = ''
 
 
-class LabelDeleteView(LoginRequiredMessageMixin,
+class LabelDeleteView(LoginRequiredMessageMixin, ObjectUsedMixin,
                       SuccessMessageMixin, DeleteView):
     model = Label
     context_object_name = 'label'
+    object_name = 'label'
     success_url = '/labels/'
     template_name = 'labels/label_delete.html'
     success_message = _('Label deleted successfully')
     redirect_field_name = ''
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        try:
-            self.object.delete()
-            messages.success(request, self.success_message)
-            return HttpResponseRedirect(self.success_url)
-        except ProtectedError:
-            messages.error(
-                self.request,
-                _('Impossible to delete label as it is used')
-            )
-            return HttpResponseRedirect(self.success_url)
