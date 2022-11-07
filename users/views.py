@@ -5,6 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext as _
 from users.forms import UserCreateForm
 from task_manager.mixins import WrongUserMessageMixin, ObjectUsedMixin
+from django.urls import reverse_lazy, reverse
 
 
 class UsersListView(ListView):
@@ -19,7 +20,7 @@ class SignupView(SuccessMessageMixin, CreateView):
     success_message = _('User signed up successfully')
 
     def get_success_url(self):
-        return '/login'
+        return reverse('login')
 
 
 class UserUpdateView(WrongUserMessageMixin,
@@ -27,7 +28,7 @@ class UserUpdateView(WrongUserMessageMixin,
     model = get_user_model()
     form_class = UserCreateForm
     template_name = 'users/user_update.html'
-    success_url = '/users/'
+    success_url = reverse_lazy('users.list')
     success_message = _('User updated successfully')
     redirect_field_name = ''
 
@@ -36,7 +37,7 @@ class UserDeleteView(WrongUserMessageMixin, ObjectUsedMixin,
                      SuccessMessageMixin, DeleteView):
     model = get_user_model()
     object_name = 'user'
-    success_url = '/users/'
+    success_url = reverse_lazy('users.list')
     template_name = 'users/user_delete.html'
     success_message = _('User deleted successfully')
     redirect_field_name = ''

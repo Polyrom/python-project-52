@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from labels.models import Label
 from labels.forms import LabelForm
@@ -18,7 +19,7 @@ class LabelCreateView(LoginRequiredMessageMixin,
     model = Label
     form_class = LabelForm
     template_name = 'labels/label_create.html'
-    success_url = '/labels/'
+    success_url = reverse_lazy('labels.list')
     success_message = _('Label created successfully')
     redirect_field_name = ''
 
@@ -28,7 +29,7 @@ class LabelUpdateView(LoginRequiredMessageMixin,
     model = Label
     form_class = LabelForm
     template_name = 'labels/label_update.html'
-    success_url = '/labels/'
+    success_url = reverse_lazy('labels.list')
     success_message = _('Label updated successfully')
     redirect_field_name = ''
 
@@ -38,7 +39,7 @@ class LabelDeleteView(LoginRequiredMessageMixin, ObjectUsedMixin,
     model = Label
     context_object_name = 'label'
     object_name = 'label'
-    success_url = '/labels/'
+    success_url = reverse_lazy('labels.list')
     template_name = 'labels/label_delete.html'
     success_message = _('Label deleted successfully')
     redirect_field_name = ''
