@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.getenv('DEBUG'))
+DEBUG = os.getenv('DEBUG', 'false').lower() in ['true']
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
