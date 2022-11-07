@@ -1,12 +1,8 @@
-import os
 import json
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-
-NEW_OBJECTS_PATH = os.path.join('task_manager',
-                                'fixtures',
-                                'new_objects.json')
+from task_manager.settings import NEW_OBJECTS_PATH
 
 
 class TestViews(TestCase):

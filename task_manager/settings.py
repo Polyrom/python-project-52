@@ -162,3 +162,7 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+NEW_OBJECTS_PATH = os.path.join('task_manager',
+                                'fixtures',
+                                'new_objects.json')
