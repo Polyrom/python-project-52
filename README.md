@@ -7,3 +7,38 @@
 ### Feel free to visit the page, sign up and play around!
 
 ### [Demo on Railway](https://python-project-52-production.up.railway.app/)
+
+### Installation
+1. Clone the repository
+```
+git clone https://github.com/Polyrom/python-project-52
+cd python-project-52
+```
+2. Install dependencies with **Poetry**
+
+    2.1. If you don't have Poetry, here's the installation guide:
+         **[Poetry installation](https://python-poetry.org/docs/)**
+```
+make install
+```
+3. Create an .env file
+```
+touch .env
+```
+4. Populate the .env file with the following values:
+```
+DEBUG=True
+SECRET_KEY=your_Django_secret_key (may be generated with 'make secretkey' command)
+ACCESS_TOKEN=your Rollbar access token (optional)
+```
+
+5. Finish installation
+```
+make makemigrations
+make migrate
+make createsuperuser
+```
+6. Now can run the app on you localhost
+```
+make start
+```
