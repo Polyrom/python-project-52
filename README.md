@@ -6,7 +6,7 @@
 
 ### Feel free to visit the page, sign up and play around!
 
-### [Demo on Railway](https://python-project-52-production.up.railway.app/)
+### [Demo on Railway](https://python-project-52-production.up.railway.app/) (Deprecated)
 
 ### Installation
 1. Clone the repository
